@@ -12,6 +12,16 @@ uf::uf(int n)
     }
 }
 
+int uf::find(int d)
+{
+    if(d>nElements || d <= 0)
+        throw "kosomak";
+    int cur_ind = pairs[d-1].index;
+    while(pairs[cur_ind].ll == nullptr)
+        cur_ind = pairs[cur_ind].index;
+    return cur_ind;
+}
+
 uf::~uf()
 {
     for(int i = 0; i < nElements; i++)
