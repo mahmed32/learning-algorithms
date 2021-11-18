@@ -1,9 +1,0 @@
-TODO:
-- Implement the union-find algorithm with the client provided in the lectures
-- Client algorithm:
-	-read a file from the terminal.(first line is an argument for the UF
-	 class) and followed by a pair of integers representing the objects
-	 of our system.
-	-while the file is not ended check if the pair is connected if not
-	 union them and print them. if connected ignore the pair.
-
