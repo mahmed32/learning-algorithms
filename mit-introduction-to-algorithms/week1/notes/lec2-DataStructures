@@ -9,6 +9,8 @@ Interface: Operations and what they mean           | Data structure: Algorithms 
 WHAT ARE THE TWO MAIN INTERFACES?
 
 - Sets and Sequences.
+- Sequence: it depend on the order of the data extrinsic order meaning the order they are putted not depending on their values it 
+            depend on the order they are inserted in.
 
 WHAT ARE THE TWO MAIN DATA STRUCTURE APPROACHES?
 
