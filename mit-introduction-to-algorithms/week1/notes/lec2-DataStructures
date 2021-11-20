@@ -1,0 +1,125 @@
+Those are my notes from lecture 2 in week one.
+
+WHAT IS THE DIFFERENCE BETWEEN AN INTERFACE AND A DATA STRUCTURE?
+
+Interface: Provides a spesification for a problem  | Data structure: Provides an impilimentaion to solve this problem
+Interface: Specifiy what data you can store        | Data structure: Tells you how to store those data
+Interface: Operations and what they mean           | Data structure: Algorithms to support those operations
+
+WHAT ARE THE TWO MAIN INTERFACES?
+
+- Sets and Sequences.
+
+WHAT ARE THE TWO MAIN DATA STRUCTURE APPROACHES?
+
+- Arrays and Pointer based data structures.
+
+WHAT DO YOU CARE ABOUT THE SQUENCE INTERFACE?
+
+- The order of the data stored so for example if the sequence has data 2,3,4,5 then 2 is the first and 3 is the second and 5 is the last element.
+
+HOW YOU CAN IMPLEMENT A SEQUENCE INTERFACE GIVE THE NAME OF THE DATA STRUCTURE(S)?
+
+- STATIC ARRAY, LINKED LIST, DYNAMIC ARRAY
+
+DESCRIBE EACH DATA STRUCTURE IN YOUR OWN WORDS?
+
+- Static Array: A CONSICIUTIVE chunks of word sized memory spaces. it has a CONSTANT size specified at allocation time and can't be changed.
+              the data stored are of the SAME TYPE. Allow RANDOM ACCESS to get any data in it.
+
+- Linded List: Consists of nodes each node has an item and a link to another node. you may think of nodes as if they are small arrays in memory
+             each small array has a "pointer" to another small array. from this the nodes may NOT be consicutive in memory. A linked list
+             has a pointer called its "head" which pointes to the first node "small array" in the linked list. from the head you can traverse to any 
+             element in the linked list by just jumping across the linked until you find your target. 
+
+- Dynamic Array: A Dynamic Array is just a Static Array but you can change the size of the array dynamicly.
+
+WHAT ARE THE OPERATIONS SUPPORTED BY THE SEQUENCE INTERFACE?WHY WE NOT JUST USE THE GENERAL OPERATIONS?
+
+-container operations:
+-> build(x) given an iterable, build sequence from it
+-> len() return the number of stored items
+-static operations:
+-> get_at(i) return the ith item
+-> set_at(i, x) set the ith item to x
+-> get_first() return the first item
+-> set_first() set the first item
+-dynamic operations:
+-> insert_at(i, x) add x to the sequence as the ith item
+-> delete_at(i) delete the ith item
+-> insert_first(x)
+-> insert_last(x)
+-> delete_first()
+-> delete_last()
+
+-because may be the the specification has an a special implementaion that make it faster than the general one
+
+WHAT FROM THE ABOVE OPERATIONS THE STACK AND QUEUE SUPPORT?
+
+-Stack:
+    -> insert_last(x);
+    -> delete_last();
+    -> get_last();
+-Queue:
+    -> insert_last();
+    -> delete_first();
+    -> get_first();
+
+WHAT IS THE WORD-RAM MODEL?
+
+- We can access memory in constant time
+  ARRAY[I] = MEMORY[ ADDRESSOF(ARRAY) + I ]; //TAKES CONST TIME
+
+- The memory is a big consicutive chunk of memory
+
+WHAT IS THE ASSUMPTION IN WORD-RAM MODEL?
+
+- That w is at least lg(n) where n is the size of the array "memory". to understand that if you have w-bit word size
+  then you have 2^(w) possible address with the largest address be ( 2^(n) - 1 ) if n > bigger than this largest address then
+  there are some places in your input will be imposible to address unless you make w bigger. this proofs that w has to grow
+  with at least the same growth rate that lg(n) grows, hence w is big_omega( lg(n) ).
+
+WHAT IS THE COST OF ACCESSING MEMORY IN WORD-RAM MODEL?
+
+- const time
+
+WHAT IS THE MEMORY ALLOCATION MODEL?WHAT IS ITS SIDE EFFECT?
+
+- Allocation of new memory chunck takes theta( n )
+- the Space is O( time )
+
+WHAT IS THE COST OF RESIZE OPERATION?
+
+- the cost of allocation + the cost of copying
+
+HOW THE DYNAMIC SEQUENCE CAN BE IMPLEMENTED? WHAT ARE THE DISADVANTAGE OF EACH IMPLEMNTION?
+
+-Static Array:
+    -> very good at static operations O(1)
+    -> very bad at dynamic operations theta(n), the cost shifting "deleting near the beginning" + the cost of RESIZEING "inserting near the end"
+
+-Linked lists: 
+    -> very good at inserting and deleting AT THE BEGINING O(1)
+    -> the rest of the operatinos are O(n) because you need to traverse the entire list in the worst case
+    -> you can imporve this a little bit by using data structure augmentaion where we keep adding some informatino to the class to make the operation faster
+    -> TODO
+
+-Dynamic Array:
+    -> very fast at static operations O(1)
+    -> takes constant Amortized time for inserting/deleteing at the end Oa(1)
+    -> we can also improve the inserting/deleting at first by some tricks
+    -> TODO
+
+PROVE THAT INSERT AT END TAKES CONSTANT TIME AT DYNAMIC ARRAYS?
+
+- Assume we have to do n insert_last(x) operations and the array is empty at the beggining"has only one slot" and we double the size of the array each time it is full
+  then the cost will be 1+2+4+8+...+n which is sigma from i = 0 to lg(n) of (2^i) it is geometric seares leads to 2^(lgn + 1) - 1. using the fact that EACH GEOMTRIC SEARIES
+  IS DOMINATED THE LAST NUMBER in our case it is 2^(lgn + 1) the theta of this is just theta(n) by dropping the constant. so n insertaions takes theta (n) then each insertaion
+  takes theta(1) constant amortized time.
+
+DESCRIPE BREAFLY WHAT IS AMORTIZED ANALYSIS? WHAT IS ITS FORMAL DEFINITION?
+
+- If an operation takes T(n) amortized time then any k of those operation take O( kT(n) ) time
+- It distripute the cost of costly operation over the cost of cheap one.
+- Anaolgy if you buy n things the cost of n-1 things is 1$ and the cost of the n thing costs (n-1)$ then the over all cost of the n things is 1+1+1+1....+(n-1) = (n-1) + (n-1) = 2n-2
+  the average cost is (2n-2)/n = 2-2/n if n is very big then it will cost only 2 which is const.done.
