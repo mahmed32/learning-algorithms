@@ -1,0 +1,30 @@
+WHAT DIFFER SETS FROM SEQUENCES?
+
+- Sets are just a pile of data. in sets we search for keys that keys are unique among the data
+  The set interface support the following operations:
+  container:
+  -> build(A) which takes an itratible and build the set
+  -> len() return number of elements in the set
+  static:
+  -> find(K) serach for a given key K in the set
+  dynamic:
+  -> insert(k, data) insert the data with key k
+  -> delete(k) delete data with the key k from the set
+  -> find_min() return the minimum key
+  -> find_max() return the maximum key
+  -> find_prev(k) return the largest key that is less than k
+  -> find_next(k) return the smallest key that is largest than k
+
+HOW TO IMPLEMENT THE SET?
+
+1- An unorderd array in this case all the operations will take linear time
+2- A sorted array the build will take run time as the sorting algorithm and after that 
+   alot of the operations will be cheap. like find will take log(n) and find_min/max() will take O(1)
+   find_prev/next(k) will take log(n) time insert/delete will take n time for shifting and copying
+
+WHAT ARE THE TYPE OF SORTING THAT THEY TEACH YOU IN LECTURE 3?
+
+- permutation sort O(n*n!) useless!
+- Selection sort O(n^2)
+- Insertion sort O(n^2)
+- Merge sort O(nlog(n))
