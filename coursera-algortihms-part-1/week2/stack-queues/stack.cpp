@@ -1,4 +1,9 @@
+#include <iostream>
+#include <chrono>
 #include <cassert>
+#include <cstdio>
+
+using namespace std::chrono;
 
 struct node
 {
@@ -62,19 +67,23 @@ class stack_ra
             n = 0;
             array = new int[c];
         }
+
         ~stack_ra()
         {
             delete [] array;
         }
+
         bool isEmpty()
         {
             return n == 0;
         }
+
         void push(int item)
         {
             if(n == c) resize(2*c);
             array[n++] = item;
         }
+
         int pop()
         {
             int olditem;
@@ -105,20 +114,41 @@ class stack_ra
 };
 int main(void)
 {
-    int i;
-    stack_ll sll;
-    stack_ra sra;
+    int i, limit;
+    char end;
 
-    for(i = 0; i < 100; i++)
+    limit = 100;
+    end = 'n';
+    while(end != 'y')
     {
-        sll.push(i);
-        sra.push(i);
-    }
+        stack_ll sll;
+        stack_ra sra;
 
-    for(i = 99; i >= 0; i--)
-    {
-        assert(sll.pop() == i);
-        assert(sra.pop() == i);
+        printf("push %d in linked list\n", limit);
+        for(i = 0; i < limit; i++)
+            sll.push(i);
+
+        auto start = high_resolution_clock::now();
+        for(i = 0; i < limit; i++)
+            sll.pop();
+        auto stop = high_resolution_clock::now();
+        auto duration = duration_cast<microseconds>(stop-start);
+        std::cout << "takes: " << duration.count() << std::endl;
+
+        printf("push %d in resized array\n", limit);
+        for(i = 0; i < limit; i++)
+            sra.push(i);
+
+        start = high_resolution_clock::now();
+        for(i = 0; i < limit; i++)
+            sra.pop();
+        stop = high_resolution_clock::now();
+        duration = duration_cast<microseconds>(stop-start);
+        std::cout << "takes: " << duration.count() << std::endl;
+
+        limit *= 2;
+        end = getchar();
+        getchar();
     }
 
     return 0;
